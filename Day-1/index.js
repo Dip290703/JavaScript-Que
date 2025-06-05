@@ -17,6 +17,10 @@ sum(20, 30);
 
 
 function Area (l,w) {
+    if(l <= 0 ||  w <= 0 ){
+        alert("Length and width must be positive numbers.");
+        return
+    }
     const area = l * w;
     console.log(`The area of rectangle with length ${l} and width ${w} is : ${area}`); 
 }
@@ -29,3 +33,5 @@ Area(5, 10);
 
 // let width = parseInt(prompt("Enter the width of the rectangle:"));
 // Area(length, width);
+
+
