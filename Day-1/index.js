@@ -11,4 +11,21 @@ function sum (a,b) {
 
 sum(5, 10);
 sum(20, 30);
+
+
 // This function takes two numbers as arguments and prints their sum to the console.
+
+
+function Area (l,w) {
+    const area = l * w;
+    console.log(`The area of rectangle with length ${l} and width ${w} is : ${area}`); 
+}
+Area(5, 10);
+
+// This function calculates the area of a rectangle given its length and width and prints the result to the console.
+
+
+// let length = parseInt(prompt("Enter the length of the rectangle:"));
+
+// let width = parseInt(prompt("Enter the width of the rectangle:"));
+// Area(length, width);
