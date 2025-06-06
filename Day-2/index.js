@@ -54,3 +54,17 @@ function smallNumber2 (a,b,c){
 
 }
 console.log(smallNumber2(3, 1, 2)); // Output: 1
+
+
+// Reverse a String
+
+function reverseStringv (string) {
+    let input = String(string)
+    let result = ""
+    for(let i = input.length  - 1 ; i >= 0 ;i --){
+        result= result + input[i];
+    }
+    return result;
+}
+console.log(reverseStringv("hello")); // Output: "olleh"
+console.log(reverseStringv("jhdkijjhgik"));
