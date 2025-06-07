@@ -1,25 +1,25 @@
-// console.log("Day 2: JavaScript Basics");
+console.log("Day 2: JavaScript Basics");
 
-// // Even or Odd Checker
+// Even or Odd Checker
  
-// function checkEvenOdd (num) {
-//     let result
-//     if(num % 2 === 0){
-//        result = "Even";
-//     }
-//     else {
-//        result = "Odd";
-//     }
-//     return result;
-// }
-// console.log(checkEvenOdd(4)); // Output: Even
-// console.log(checkEvenOdd(5)); // Output: Odd
+function checkEvenOdd (num) {
+    let result
+    if(num % 2 === 0){
+       result = "Even";
+    }
+    else {
+       result = "Odd";
+    }
+    return result;
+}
+console.log(checkEvenOdd(4)); // Output: Even
+console.log(checkEvenOdd(5)); // Output: Odd
 
-// //short version
-// function checkEvenOdd (num) {
-//     return num % 2 === 0 ? "Even" : "Odd";
-// }
-// console.log(checkEvenOdd(4)); // Output: Even
+//short version
+function checkEvenOdd (num) {
+    return num % 2 === 0 ? "Even" : "Odd";
+}
+console.log(checkEvenOdd(4)); // Output: Even
 
 
 function smallNumber (){
@@ -68,3 +68,15 @@ function reverseStringv (string) {
 }
 console.log(reverseStringv("hello")); // Output: "olleh"
 console.log(reverseStringv("jhdkijjhgik"));
+  
+
+//factorial
+
+function factorial(num){
+for(let i = num -1 ;i >0 ;i--){
+    num = num * i
+}
+return num
+}
+console.log(factorial(5)); // Output:
+
