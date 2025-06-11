@@ -1,7 +1,13 @@
 
 function biggestNumber () {
+    
     let lengthOfArray = parseInt(prompt("Enter length of array"))
+   
     let numbers = []
+    if(lengthOfArray === 0){
+      console.log("array is empty");
+      
+    }
     for (let i = 0; i < lengthOfArray; i ++ ){
         let number = parseInt(prompt("Enter numbers"))
         numbers.push(number)
@@ -37,4 +43,4 @@ function smallestNumber () {
     console.log("samllest number", smallestNumber);
     
 }
-smallestNumber()
+//smallestNumber()
