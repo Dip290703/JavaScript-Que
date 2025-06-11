@@ -23,7 +23,7 @@ function biggestNumber () {
     console.log("biggest number", biggestNumber);
     
 }
-biggestNumber()
+//;biggestNumber()
 
 function smallestNumber () {
     let lengthOfArray = parseInt(prompt("Enter length of array"))
@@ -44,3 +44,14 @@ function smallestNumber () {
     
 }
 //smallestNumber()
+
+
+function biggest (arrayOfNumbers){
+    const numbers = Math.max(96,7,8,9,7,6)
+    const big = Math.max(...arrayOfNumbers)
+    console.log(numbers);
+    console.log(big);
+    
+    
+}
+biggest([1,3,4,5,6,7,8,9])
