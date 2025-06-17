@@ -1,7 +1,10 @@
 // prime number
 function isPrime(inputNumber) {
   let result = true;
-  if (inputNumber % 2 === 0) {
+  if(inputNumber === 2){
+    result = true;
+  }
+  else if (inputNumber % 2 === 0) {
     result = false;
   }
 
@@ -16,4 +19,4 @@ function isPrime(inputNumber) {
   return result;
 }
 
-console.log(isPrime(4));
+console.log(isPrime(2));
