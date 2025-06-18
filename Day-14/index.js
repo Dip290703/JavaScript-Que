@@ -9,3 +9,14 @@ function fahrenheitToCelsius(input){
     return celsius;
 }
 console.log(fahrenheitToCelsius(113));
+
+//swappinig
+
+let a = 5 
+let b = 4
+let c 
+c=a 
+a= b
+b=c
+console.log(a);
+console.log(b);
