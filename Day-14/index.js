@@ -10,7 +10,7 @@ function fahrenheitToCelsius(input){
 }
 console.log(fahrenheitToCelsius(113));
 
-//swappinig
+//swappinig with extra variable
 
 let a = 5 
 let b = 4
