@@ -169,3 +169,28 @@ function tableOfNUmber (number){
         return result;
     }
     console.log(exponentiation(2, 3)); // Output: 8 (2^3 = 8)
+
+
+    //Qu:11
+
+    function isPrime(inputNumber) {
+  let result = true;
+  if(inputNumber === 2){
+    result = true;
+  }
+  else if (inputNumber % 2 === 0) {
+    result = false;
+  }
+
+  if (result === true) {
+    for (let i = 3; i < inputNumber; i += 2) {
+      if (inputNumber % i === 0) {
+        result = false;
+        break;
+      }
+    }
+  }
+  return result;
+}
+
+console.log(isPrime(2));
