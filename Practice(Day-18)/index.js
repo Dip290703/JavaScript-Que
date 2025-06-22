@@ -90,3 +90,82 @@ function factorial(n){
     return factorial;
 }
 //console.log(factorial(1)); // 120
+
+// Qu:6
+
+function isLeapYear(year) {
+  if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
+    console.log(`${year} is a leap year`);
+  } else {
+    console.log(`${year} is not a leap year`);
+  }
+}
+
+// isLeapYear(1900); // Output: 1900 is not a leap year
+// isLeapYear(2000); // Output: 2000 is a leap year
+// isLeapYear(2024)
+
+//Qu:7
+
+function sumOfDigits (number){
+    let sum = 0
+    for(let i = 0 ; i < number.length; i++){
+        sum += parseInt(number[i]);
+    }
+    return sum;
+}
+//console.log(sumOfDigits("12345")); // Output: 15 number pass as a string
+
+function sumOfDigits2 (number){
+    let sum = 0
+    for(let i = 0 ; i < number.toString().length;i++){
+        sum = sum + parseInt(number.toString()[i]);
+    }
+    console.log(sum);
+    
+} 
+//sumOfDigits2(12345); // Output: 15 number pass as a number
+
+// Qu:8
+
+function tableOfNUmber (number){
+    for(let i =1 ; i <= 10;i++){
+        console.log(`${number} * ${i} = ${number * i}`);
+    }
+}
+ //tableOfNUmber(5); // Output: 5 * 1 = 5, 5 * 2 = 10, ..., 5 * 10 = 50
+
+ // Qu:9
+
+ function isPalindrome (string){
+    let reversed = string.split('').reverse().join('');
+    if (reversed === string) {
+        console.log(`${string} is a palindrome`);
+    } else {
+        console.log(`${string} is not a palindrome`);
+    }
+ }
+    //isPalindrome("madam"); // Output: madam is a palindrome
+    //isPalindrome("hello"); // Output: hello is not a palindrome
+
+    function isPalindrome2 (string){
+        for(let i = 0 ; i < string.length ; i ++){
+            if(string[i]=== string[string.length -1 - i]){
+                return true;
+            }else
+            {
+                return false;
+            }
+        }
+    }
+    //console.log(isPalindrome2("Dipanhf")); // Output: true
+
+    //Qu:10
+   function exponentiation(base, exponent) {
+        let result = 1;
+        for (let i = 0; i < exponent; i++) {
+            result *= base;
+        }
+        return result;
+    }
+    console.log(exponentiation(2, 3)); // Output: 8 (2^3 = 8)
