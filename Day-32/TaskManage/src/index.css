@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+
+/* index.css */
+
+.dark-theme {
+  background-color: #121212;
+  color: white;
+}
+
+.light-theme {
+  background-color: white;
+  color: black;
+}
+
+.button-theme {
+  background-color: #e2e8f0; /* Light gray */
+}
+
+.dark-theme .button-theme {
+  background-color: #333333;
+  color: white;
+}
