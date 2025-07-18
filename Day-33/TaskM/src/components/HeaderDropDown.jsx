@@ -6,7 +6,7 @@ import dark from "../assets/icon-dark-theme.svg"
 import { Switch } from '@headlessui/react'
 import useDarkMode from "../Hooks/useDarkMode"
 
-const HeaderDropDown = ({setOpenDrop}) => {
+const HeaderDropDown = ({setOpenDrop,setBoardModalOpen}) => {
     const [colorTheme,setTheme] = useDarkMode()
     const [darkSide, setDarkSide] = useState(
         colorTheme === 'light' ? true : false
@@ -27,7 +27,7 @@ const HeaderDropDown = ({setOpenDrop}) => {
         setOpenDrop(false)
     }}>
    {/* dropdown mode; */}
-   <div className='bg-white dark:bg-[#2b2c37] shadow-md shadow-[#364e7e1a] w-full py-4 rounded-xl '>
+   <div className='bg-white dark:bg-[#2b2c37]  dark:text-white shadow-md shadow-[#364e7e1a] w-full py-4 rounded-xl '>
     <h3 className='dark:text-gray-300 text-gray-600 font-semibold mx-4 mb-8'>All Boards ({boards.length})</h3>
     <div>
         {
@@ -40,7 +40,11 @@ const HeaderDropDown = ({setOpenDrop}) => {
             
           ))  
         }
-        <div className='flex space-x-4 px-5 py-5 '>
+        <div className='flex space-x-4 px-5 py-5 '
+        onClick={()=>{
+            setBoardModalOpen(true)
+            setOpenDrop(false)
+        }}>
             <img src={boardIcon} alt="boardIcon" 
             className='h-6'/>
             <p className='text-lg font-bold text-[#635fc7]'>Create New Board</p>

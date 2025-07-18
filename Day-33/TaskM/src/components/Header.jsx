@@ -5,7 +5,8 @@ import iconDown from "../assets/icon-chevron-down.svg";
 
 import eilips from '../assets/icon-vertical-ellipsis.svg'
 import HeaderDropDown from "./HeaderDropDown";
-const Header = () => {
+import AddEditBoardModal from "../models/AddEditBoardModal";
+const Header = ({boardModalOpen,setBoardModalOpen}) => {
   const [openDrop, setOpenDrop] = useState(false);
   
   return (
@@ -40,7 +41,15 @@ const Header = () => {
         </div>
       </header>
       {
-          openDrop && <HeaderDropDown  setOpenDrop = {setOpenDrop}/>
+          openDrop && <HeaderDropDown 
+          setBoardModalOpen = {setBoardModalOpen}
+          setOpenDrop = {setOpenDrop}/>
+      }
+      {
+        boardModalOpen && <AddEditBoardModal
+        setBoardModalOpen= {setBoardModalOpen} 
+        />
+    
       }
     </div>
   );
