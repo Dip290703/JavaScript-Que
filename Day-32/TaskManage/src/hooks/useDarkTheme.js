@@ -1,24 +1,27 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
-const useDarkMode =() => {
-   const [theme, setTheme] = useState(() => {
-    return localStorage.theme || 'light';
+const useDarkMode = () => {
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'light';
   });
 
   useEffect(() => {
-    const root = window.document.documentElement;
+  const root = window.document.documentElement;
 
-  // Remove both classes first
-  root.classList.remove('dark-theme', 'light-theme');
+  root.classList.remove('dark', 'light');
 
-  // Add the current theme class
-  root.classList.add(`${theme}-theme`);
+  if (theme === 'dark') {
+    root.classList.add('dark');
+  } else {
+    root.classList.add('light');  // Optional, for your own CSS
+  }
 
-  // Save preference
   localStorage.setItem('theme', theme);
 
-  }, [theme]);
+}, [theme]);
+
 
   return [theme, setTheme];
-}
- export default useDarkMode;
+};
+
+export default useDarkMode;
