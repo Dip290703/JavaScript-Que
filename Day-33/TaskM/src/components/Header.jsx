@@ -4,6 +4,7 @@ import iconUp from "../assets/icon-chevron-up.svg";
 import iconDown from "../assets/icon-chevron-down.svg";
 
 import eilips from '../assets/icon-vertical-ellipsis.svg'
+import HeaderDropDown from "./HeaderDropDown";
 const Header = () => {
   const [openDrop, setOpenDrop] = useState(false);
   
@@ -27,7 +28,7 @@ const Header = () => {
               alt="iconDownUp"
               onClick={()=>setOpenDrop(state => !state)}
               className="w-3 ml-2 cursor-pointer md:hidden"
-              in
+    
             />
           </div>
         </div>
@@ -38,6 +39,9 @@ const Header = () => {
             className="h-6 cursor-pointer"/>
         </div>
       </header>
+      {
+          openDrop && <HeaderDropDown  setOpenDrop = {setOpenDrop}/>
+      }
     </div>
   );
 };

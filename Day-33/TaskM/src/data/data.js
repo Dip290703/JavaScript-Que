@@ -378,7 +378,7 @@
     },
     {
       "name": "Roadmap",
-      "isActive" : false,
+      "isActive" : true,
       "columns": [
         {
           "name": "Now",
