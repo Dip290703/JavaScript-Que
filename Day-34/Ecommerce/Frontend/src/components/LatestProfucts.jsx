@@ -10,6 +10,7 @@ const LatestProfucts = () => {
   useEffect(() => {
     setLatestProducts(products.slice(0, 10));
   }, []);
+// load when page render
 
   return (
     <div className="my-10 ">
