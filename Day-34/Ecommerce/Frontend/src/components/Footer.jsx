@@ -19,7 +19,7 @@ const Footer = () => {
                 </ul>
             </div>
             <div>
-                <p lassName='text-xl font-medium mb-5'>GET IN TOUCH</p>
+                <p className='text-xl font-medium mb-5'>GET IN TOUCH</p>
                  <ul className='flex flex-col gap-1 text-gray-600'>
                     <li>+91 9096554236</li>
                     <li>dummy@1234gmail.com</li>
@@ -36,4 +36,4 @@ const Footer = () => {
   )
 }
 
-export default Footer
+export default Footer   
