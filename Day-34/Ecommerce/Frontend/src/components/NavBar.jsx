@@ -5,7 +5,7 @@ import { useShop } from "../context/ShopContext";
 const NavBar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const {
-    setShowSearch} = useShop()
+    setShowSearch,getCartItemCount} = useShop()
   return (
     <div className="flex items-center justify-between py-5 font-medium">
       <Link to='/'><img src={assets.logo} alt="logo" className="w-36" /></Link>
@@ -87,7 +87,7 @@ const NavBar = () => {
         <Link to="/cart" className="relative">
           <img src={assets.cart_icon} alt="cart" className="w-6 min-w-6" />
           <div className="absolute bottom-[-5px] right-[-5px] bg-slate-500 text-white text-xs rounded-lg w-5 h-5 flex items-center justify-center">
-            10
+            {getCartItemCount()}   
           </div>
         </Link>
         <img
