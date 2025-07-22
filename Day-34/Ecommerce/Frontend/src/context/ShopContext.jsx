@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import { products } from "../assets/frontend_assets/assets";
 
 // Corrected context name
@@ -7,11 +7,18 @@ import { products } from "../assets/frontend_assets/assets";
 const ShopProvider = ({ children }) => {
   const currency = "$";
   const delivery_fee = 10;
+  const [serach ,setSearch] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
 
   const value = {
     products,
     currency,
     delivery_fee,
+    serach,
+    setSearch,
+    showSearch,
+    setShowSearch,
+
   };
 
   return (

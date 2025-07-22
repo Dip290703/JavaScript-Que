@@ -1,8 +1,11 @@
 import React from "react";
 import { assets } from "../assets/frontend_assets/assets";
 import { Link, NavLink } from "react-router-dom";
+import { useShop } from "../context/ShopContext";
 const NavBar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const {
+    setShowSearch} = useShop()
   return (
     <div className="flex items-center justify-between py-5 font-medium">
       <Link to='/'><img src={assets.logo} alt="logo" className="w-36" /></Link>
@@ -65,6 +68,7 @@ const NavBar = () => {
           src={assets.search_icon}
           alt="searchicon"
           className="w-5 cursor-pointer"
+          onClick={() => setShowSearch((prev) => !prev)}
         />
         <div className="group relative">
           <img
