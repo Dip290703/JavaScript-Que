@@ -9,7 +9,7 @@ const PlaceOrder = () => {
   const {navigate} = useShop()
   return (
     <div className='flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14  min-h-[80vh] border-t'>
-      {/* left side */}
+      {/* left side */}  
   
      <div className='flex flex-col gap-4 w-full sm:max-w-[480px]'>
       <div className='text-xl sm:text-2xl my-3'>
