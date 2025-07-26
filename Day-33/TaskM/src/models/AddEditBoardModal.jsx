@@ -1,4 +1,5 @@
 import React from "react";
+import cross from "../assets/icon-cross.svg"; // Assuming you have a cross icon in your assets
 
 const AddEditBoardModal = ({ setBoardModalOpen, type }) => {
     //console.log(type);
@@ -20,6 +21,10 @@ const AddEditBoardModal = ({ setBoardModalOpen, type }) => {
         <h3 className="text-lg">
           {type === "edit" ? "Edit " : "Add New"} Board
         </h3>
+        <div className="mt-4 flex ">
+           <input type="text" placeholder="Add new board" className="text-sm border  py-2 w-full  px-2 rounded outline-none" />
+           <img src={cross} alt="" className="" />
+        </div>
       </div>
     </div>
   );
