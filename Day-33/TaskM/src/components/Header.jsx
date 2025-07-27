@@ -17,6 +17,18 @@ const Header = ({boardModalOpen,setBoardModalOpen}) => {
   const boards = useSelector((state) => state.boards);
   const board = boards.find((board) => board.isActive);
 const [isElipsisOpen,setIsElipsisOpen] = useState(false)
+const [isDeleteModalOpen ,setIsDeleteModalOpen] = useState(false)
+
+
+const setOpenEditModal = () => {
+  setBoardType('edit')
+  setBoardModalOpen(true)
+  setIsElipsisOpen(false)
+}
+const setOpenDeleteModal = () => {
+  setIsDeleteModalOpen(true)
+  setIsElipsisOpen(false)
+}
   return (
     <div
       className="p-4 fixed left-0 right-0
@@ -50,16 +62,24 @@ const [isElipsisOpen,setIsElipsisOpen] = useState(false)
             > + </button>
             <img src={eilips} alt="eilips" 
             className="h-6 cursor-pointer"
-            onClick={() => setIsElipsisOpen(prev => !prev)}/>
+            onClick={() =>
+           { setOpenDrop(false)
+            setIsElipsisOpen(prev => !prev)}}/>
             {
-        isElipsisOpen &&   <ElipsisEMenu />
+         isElipsisOpen &&   <ElipsisEMenu
+        
+         setOpenDeleteModal={setIsDeleteModalOpen}
+         setOpenEditModal={setOpenEditModal}
+        
+        type="Boards" />
       }
         </div>
       </header>
       {
           openDrop && <HeaderDropDown 
           setBoardModalOpen = {setBoardModalOpen}
-          setOpenDrop = {setOpenDrop}/>
+          setOpenDrop = {setOpenDrop}
+          setBoardType = {setBoardType}/>
       }
       {
         boardModalOpen && <AddEditBoardModal

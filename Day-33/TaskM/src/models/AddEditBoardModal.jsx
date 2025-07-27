@@ -1,19 +1,40 @@
 import React, { useState } from "react";
 import cross from "../assets/icon-cross.svg"; // Assuming you have a cross icon in your assets
 import { v4 as uuid } from "uuid"; // Importing uuid for unique IDs
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import boardsSice from "../redux/boardsSlice"; // Assuming you have a boardsSlice for Redux state management
 
 const AddEditBoardModal = ({ setBoardModalOpen, type }) => {
   const dispatch = useDispatch();
   const [name,setName]=useState('')
   const [isvalid, setIsValid] = useState(true);
-  const [columns, setColumns] = useState(
-    [
-      {name:"Todo", task :[],id:uuid()},
-      {name:"Doing", task :[],id:uuid()},
-    ]
-  );
+  const [isFirstLoad,setIsFirstLoad] = useState(true)
+  const boards = useSelector((state) => state.boards);
+const board = boards.find((board) => board.isActive);
+ const [columns, setColumns] = useState(() =>
+  type === "add"
+    ? [
+        { name: "Todo", tasks: [], id: uuid() },
+        { name: "Doing", tasks: [], id: uuid() },
+      ]
+    : []
+);
+
+
+React.useEffect(() => {
+  if (type === "edit" && isFirstLoad && board) {
+    setColumns(
+      board.columns.map((col) => {
+        return { ...col, id: uuid() };
+      })
+    );
+    setName(board.name);
+    setIsFirstLoad(false);
+  }
+}, [type, isFirstLoad, board]);
+
+
+
   const onChange = (id , newValue) => {
      setColumns((prevState)=>{
       const newState =  [...prevState]
@@ -22,7 +43,7 @@ const AddEditBoardModal = ({ setBoardModalOpen, type }) => {
       return newState
      })
   }
-  console.log(columns);
+
   
     //console.log(type);
     const onDelete = (id) => {
@@ -49,7 +70,8 @@ const AddEditBoardModal = ({ setBoardModalOpen, type }) => {
     if(type === "add") {
       dispatch(boardsSice.actions.addBoard({
         name,
-        columns
+        columns,
+        isActive:true
       }));
     }else{
       dispatch(boardsSice.actions.editBoard({
@@ -106,7 +128,7 @@ const AddEditBoardModal = ({ setBoardModalOpen, type }) => {
      onClick={() => {
       setColumns((state)=> [
         ...state,
-        { name: "", task: [], id: uuid() }
+        { name: "", tasks: [], id: uuid() }
       ])
      }}>
      + Add New Column

@@ -7,7 +7,7 @@ import { Switch } from '@headlessui/react'
 import useDarkMode from "../Hooks/useDarkMode"
 import boardsSlice from '../redux/boardsSlice'
 
-const HeaderDropDown = ({setOpenDrop,setBoardModalOpen}) => {
+const HeaderDropDown = ({setOpenDrop,setBoardModalOpen ,setBoardType}) => {
   const dispatch = useDispatch()
     const [colorTheme,setTheme] = useDarkMode()
     const [darkSide, setDarkSide] = useState(
@@ -47,6 +47,7 @@ const HeaderDropDown = ({setOpenDrop,setBoardModalOpen}) => {
         }
         <div className='flex space-x-4 px-5 py-5 '
         onClick={()=>{
+          setBoardType('add')
             setBoardModalOpen(true)
             setOpenDrop(false)
         }}>

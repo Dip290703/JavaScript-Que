@@ -7,15 +7,16 @@ const AddEditTaskModal = ({ type, device, setOpenAddEditTaskModal , prevColIndex
   const [title, setTitle] = React.useState("");
 
   const [description, setDescription] = React.useState("");
-  const board = useSelector((state) => state.boards).find(
-    (board) => board.isActive
-  );
+  const boards = useSelector((state) => state.boards);
+const board = boards.find((board) => board.isActive);
   const [newColIndex,setNewColIndex] = useState(prevColIndex)
   const dispatch = useDispatch()
    const [isvalid, setIsValid] = useState(true);
-  const columns = board.columns; 
-  const col = columns.find((col,index) => index === prevColIndex);
-    const [status ,setStatus] = useState(columns[prevColIndex].name)
+const columns = board.columns || [];
+
+const col = columns.find((col,index) => index === prevColIndex);
+const [status, setStatus] = useState(columns[prevColIndex]?.name || "");
+
   const [subtasks, setSubtasks] = React.useState([
     { id: uuid(), title: "", isCompleted: false },
     { id: uuid(), title: "", isCompleted: false },
