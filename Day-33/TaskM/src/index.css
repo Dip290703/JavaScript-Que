@@ -8,3 +8,9 @@
         text-white text-lg font-semibold hover:opacity-80 duration-200
     }
 }
+.select {
+    background-image: url(./assets/icon-chevron-down.svg);
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 16px top 50%;
+}

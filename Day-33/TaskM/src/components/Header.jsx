@@ -6,9 +6,17 @@ import iconDown from "../assets/icon-chevron-down.svg";
 import eilips from '../assets/icon-vertical-ellipsis.svg'
 import HeaderDropDown from "./HeaderDropDown";
 import AddEditBoardModal from "../models/AddEditBoardModal";
+import { useDispatch, useSelector } from "react-redux";
+import AddEditTaskModal from "../models/AddEditTaskModal";
+import ElipsisEMenu from "./ElipsisEMenu";
 const Header = ({boardModalOpen,setBoardModalOpen}) => {
   const [openDrop, setOpenDrop] = useState(false);
-  
+  const [boardType, setBoardType] = useState("add");
+  const [openAddEditTaskModal, setOpenAddEditTaskModal] = useState(false);
+ // const dispatch = useDispatch()
+  const boards = useSelector((state) => state.boards);
+  const board = boards.find((board) => board.isActive);
+const [isElipsisOpen,setIsElipsisOpen] = useState(false)
   return (
     <div
       className="p-4 fixed left-0 right-0
@@ -22,7 +30,7 @@ const Header = ({boardModalOpen,setBoardModalOpen}) => {
           </h3>
           <div className="flex items-center ">
             <h3 className="truncate max-w-[200px] font-bold md:text-2xl text-xl md:ml-20 font-sans">
-              board Name
+            {board.name}
             </h3>
             <img
               src={openDrop ? iconUp : iconDown}
@@ -35,9 +43,17 @@ const Header = ({boardModalOpen,setBoardModalOpen}) => {
         </div>
         <div className="flex  space-x-4 md:space-x-6 items-center">
             <button className="button hidden md:block">+ Add New Task</button> 
-            <button className="md:hidden py-1 px-3  button"> + </button>
+            <button className="md:hidden py-1 px-3  button"
+            onClick={()=>{
+              setOpenAddEditTaskModal(prev => !prev);
+            }}
+            > + </button>
             <img src={eilips} alt="eilips" 
-            className="h-6 cursor-pointer"/>
+            className="h-6 cursor-pointer"
+            onClick={() => setIsElipsisOpen(prev => !prev)}/>
+            {
+        isElipsisOpen &&   <ElipsisEMenu />
+      }
         </div>
       </header>
       {
@@ -47,10 +63,17 @@ const Header = ({boardModalOpen,setBoardModalOpen}) => {
       }
       {
         boardModalOpen && <AddEditBoardModal
+        type= {boardType}
         setBoardModalOpen= {setBoardModalOpen} 
         />
     
       }
+      {
+        openAddEditTaskModal && <AddEditTaskModal 
+        type="add"
+        device="mobile" setOpenAddEditTaskModal={setOpenAddEditTaskModal}/>
+      }
+     
     </div>
   );
 };

@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import cross from "../assets/icon-cross.svg"; // Assuming you have a cross icon in your assets
 import { v4 as uuid } from "uuid"; // Importing uuid for unique IDs
+import { useDispatch } from "react-redux";
+import boardsSice from "../redux/boardsSlice"; // Assuming you have a boardsSlice for Redux state management
 
 const AddEditBoardModal = ({ setBoardModalOpen, type }) => {
+  const dispatch = useDispatch();
   const [name,setName]=useState('')
+  const [isvalid, setIsValid] = useState(true);
   const [columns, setColumns] = useState(
     [
       {name:"Todo", task :[],id:uuid()},
       {name:"Doing", task :[],id:uuid()},
-  
     ]
   );
   const onChange = (id , newValue) => {
@@ -19,7 +22,42 @@ const AddEditBoardModal = ({ setBoardModalOpen, type }) => {
       return newState
      })
   }
+  console.log(columns);
+  
     //console.log(type);
+    const onDelete = (id) => {
+    setColumns((prevState) => {
+      return prevState.filter((column) => column.id !== id);
+    })}
+    
+    const validate = ( )  => {
+      setIsValid(false)
+      if (!name.trim()) {
+        return false;
+      }
+      for(let i = 0; i < columns.length; i++) {
+        if (!columns[i].name.trim()) {
+          return false;
+        }
+      }
+      setIsValid(true);
+      return true;
+    }
+
+  const onSubmit = (type) => {
+    setBoardModalOpen(false);
+    if(type === "add") {
+      dispatch(boardsSice.actions.addBoard({
+        name,
+        columns
+      }));
+    }else{
+      dispatch(boardsSice.actions.editBoard({
+        name,
+        columns
+      }));
+    }
+  }
     
   return (
     <div
@@ -57,10 +95,33 @@ const AddEditBoardModal = ({ setBoardModalOpen, type }) => {
            onChange={(e)=>onChange(column.id, e.target.value)}
             />
             <img src={cross} alt=""
-            className="cursor-pointer m-4 " />
+            className="cursor-pointer m-4 " 
+            onClick={()=> onDelete(column.id)}/>
         </div>
        ))
       }
+     </div>
+     <div className="mt-2">
+     <button className="w-full items-center hover:opacity-75 dark:text-[#635fc7] dark:bg-white text-white bg-[#635fc7] px-4 py-2 rounded-full mt-2"
+     onClick={() => {
+      setColumns((state)=> [
+        ...state,
+        { name: "", task: [], id: uuid() }
+      ])
+     }}>
+     + Add New Column
+     </button>
+     <button className="w-full items-center hover:opacity-75 dark:text-white dark:bg-[#635fc7] text-white bg-[#635fc7] px-4 py-2 rounded-full mt-8"
+     onClick={
+      ()=> {
+        const isvalid  = validate()
+        if(isvalid) onSubmit(type)
+      }
+     }> 
+      {
+        type === "add" ? "Create New Board" : "Save Changes"
+      }
+     </button>
      </div>
       </div>
     </div>
