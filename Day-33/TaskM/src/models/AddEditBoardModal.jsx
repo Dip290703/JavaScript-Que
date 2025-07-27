@@ -11,13 +11,11 @@ const AddEditBoardModal = ({ setBoardModalOpen, type }) => {
   const [isFirstLoad,setIsFirstLoad] = useState(true)
   const boards = useSelector((state) => state.boards);
 const board = boards.find((board) => board.isActive);
- const [columns, setColumns] = useState(() =>
-  type === "add"
-    ? [
-        { name: "Todo", tasks: [], id: uuid() },
-        { name: "Doing", tasks: [], id: uuid() },
+ const [columns, setColumns] = useState( [
+        { name: "Todo", task: [], id: uuid() },
+        { name: "Doing", task: [], id: uuid() },
       ]
-    : []
+  
 );
 
 

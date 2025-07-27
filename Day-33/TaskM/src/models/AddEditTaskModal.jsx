@@ -3,24 +3,33 @@ import { v4 as uuid } from "uuid";
 import cross from "../assets/icon-cross.svg";
 import { useDispatch, useSelector } from "react-redux";
 import boardsSlice from "../redux/boardsSlice";
-const AddEditTaskModal = ({ type, device, setOpenAddEditTaskModal , prevColIndex = 0,taskIndex}) => {
-  const [title, setTitle] = React.useState("");
+const AddEditTaskModal = ({
+  type,
+  device,
+  setOpenAddEditTaskModal,
+  prevColIndex = 0,
+  taskIndex,
+}) => {
+  const dispatch = useDispatch();
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [isValid, setIsValid] = useState(true);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+const boards = useSelector((state) => state.boards);
+const board = Array.isArray(boards) ? boards.find((board) => board.isActive) : null;
 
-  const [description, setDescription] = React.useState("");
-  const boards = useSelector((state) => state.boards);
-const board = boards.find((board) => board.isActive);
-  const [newColIndex,setNewColIndex] = useState(prevColIndex)
-  const dispatch = useDispatch()
-   const [isvalid, setIsValid] = useState(true);
-const columns = board.columns || [];
 
-const col = columns.find((col,index) => index === prevColIndex);
-const [status, setStatus] = useState(columns[prevColIndex]?.name || "");
-
-  const [subtasks, setSubtasks] = React.useState([
-    { id: uuid(), title: "", isCompleted: false },
-    { id: uuid(), title: "", isCompleted: false },
+  const columns = board.columns;
+  const col = columns.find((col, index) => index === prevColIndex);
+  const task = col ? col.tasks.find((task, index) => index === taskIndex) : [];
+  const [status, setStatus] = useState(columns[prevColIndex].name);
+  const [newColIndex, setNewColIndex] = useState(prevColIndex);
+  const [subtasks, setSubtasks] = useState([
+    { title: "", isCompleted: false, id: uuid() },
+    { title: "", isCompleted: false, id: uuid() },
   ]);
+
+console.log(board);
 
   const onDelete = (id) => {
     setSubtasks((prev) => {
@@ -30,49 +39,69 @@ const [status, setStatus] = useState(columns[prevColIndex]?.name || "");
   const onChange = (value, id) => {
     setSubtasks((prev) => {
       const newState = [...prev];
-      const subTask = newState.find((subTask) => subTask.id === id);
-      subTask.title = value;
+      const subtask = newState.find((subtask) => subtask.id === id);
+      subtask.title = value;
       return newState;
     });
   };
-   const validate = ( )  => {
-      setIsValid(false)
-      if (!title.trim()) {
+
+   if (type === "edit" && isFirstLoad) {
+    setSubtasks(
+      task.subtasks.map((subtask) => {
+        return { ...subtask, id: uuidv4() };
+      })
+    );
+    setTitle(task.title);
+    setDescription(task.description);
+    setIsFirstLoad(false);
+  }
+
+  const validate = () => {
+    setIsValid(false);
+    if (!title.trim()) {
+      return false;
+    }
+    for (let i = 0; i < subtasks.length; i++) {
+      if (!subtasks[i].title.trim()) {
         return false;
       }
-      for(let i = 0; i < subtasks.length; i++) {
-        if (!subtasks[i].title.trim()) {
-          return false;
-        }
-      }
-      setIsValid(true);
-      return true;
     }
+    setIsValid(true);
+    return true;
+  };
 
-    
-      const onSubmit = (type) => {
-       
-        if(type === "add") {
-          dispatch(boardsSlice.actions.addTask({
+  const onSubmit = (type) => {
+    if (type === "add") {
+      dispatch(
+        boardsSlice.actions.addTask({
+        title, description, subtasks, status,
+          newColIndex,
+        })
+      );
+    } else {
+      dispatch(
+        boardsSlice.actions.editTask({
             title,
-            description,
-            subtasks, 
-            status, 
-            newColIndex
-          }));
-        }else{
-          dispatch(boardsSlice.actions.editTask({
-           title,description,subtasks,status,prevColIndex,taskIndex,newColIndex
-          }));
-        }
-      }
-      const onChangeStatus = (e) => {
-        setStatus(e.target.value)
-        setNewColIndex(e.target.selectedIndex)
-        
-      } 
-    
-      
+        status,
+        description,
+        subtasks,
+        prevColIndex,
+        newColIndex,
+        taskIndex,
+        })
+      );
+    }
+  };
+  const onChangeStatus = (e) => {
+    setStatus(e.target.value);
+    setNewColIndex(e.target.selectedIndex);
+  };
+
+  
+if (!board) {
+  console.log("No active board found or boards not ready yet");
+
+}
   return (
     <div
       onClick={(e) => {
@@ -96,6 +125,7 @@ const [status, setStatus] = useState(columns[prevColIndex]?.name || "");
           <input
             type="text"
             value={title}
+            id="task-name-input"
             className="bg-transparent px-4 py-2 outline-none focus:border-0 rounded-md text-sm border border-gray-600 focus:outline-[#635fc7] ring-0"
             onChange={(e) => setTitle(e.target.value)}
             placeholder="e.g . Task 1"
@@ -146,7 +176,7 @@ const [status, setStatus] = useState(columns[prevColIndex]?.name || "");
             onClick={() => {
               setSubtasks((state) => [
                 ...state,
-                { id: uuid(), title: "", isCompleted: false },
+                { title: "", isCompleted: false, id: uuid() },
               ]);
             }}
           >
@@ -157,27 +187,25 @@ const [status, setStatus] = useState(columns[prevColIndex]?.name || "");
               Current status
             </label>
             <select
-            value={status}
-            onChange={(e) =>{
-              onChangeStatus(e)
-            }}
+              value={status}
+              onChange={(e) =>{onChangeStatus(e)}}
               className="select flex flex-grow py-2 px-4 rounded-md text-sm 
              bg-white dark:bg-gray-800 text-black dark:text-white 
              border border-gray-600 focus:outline-[#635fc7] focus:border-0 outline-none"
             >
-              {columns.map((col, index) => (
-                <option value={col.name} key={index}>
-                  {col.name}
+              {columns.map((column, index) => (
+                <option value={column.name} key={index}>
+                  {column.name}
                 </option>
               ))}
             </select>
           </div>
-           <button
+          <button
             className="w-full items-center hover:opacity-75 dark:text-white dark:bg-[#635fc7] text-white bg-[#635fc7] px-4 py-2 rounded-full mt-8"
             onClick={() => {
               const isvalid = validate();
               if (isvalid === true) onSubmit(type);
-               setOpenAddEditTaskModal(false);
+              setOpenAddEditTaskModal(false);
             }}
           >
             {type === "edit" ? "Save Task" : "Create Task"}

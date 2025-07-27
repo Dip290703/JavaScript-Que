@@ -91,7 +91,8 @@ const setOpenDeleteModal = () => {
       {
         openAddEditTaskModal && <AddEditTaskModal 
         type="add"
-        device="mobile" setOpenAddEditTaskModal={setOpenAddEditTaskModal}/>
+        device="mobile" 
+        setOpenAddEditTaskModal={setOpenAddEditTaskModal}/>
       }
      
     </div>

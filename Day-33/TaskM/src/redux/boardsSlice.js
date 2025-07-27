@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import data from "../data/data";
 
-const initialState = data.boards
-export const boardsSlice = createSlice({
-    name: "boards",
-    initialState,
-    reducers :{
-         addBoard: (state, action) => {
+const boardsSlice = createSlice({
+  name: "boards",
+  initialState: data.boards,
+  reducers: {
+    addBoard: (state, action) => {
       const isActive = state.length > 0 ? false : true;
       const payload = action.payload;
       const board = {
@@ -99,5 +98,6 @@ export const boardsSlice = createSlice({
       col.tasks = col.tasks.filter((task, i) => i !== payload.taskIndex);
     },
   },
-})
+});
+
 export default boardsSlice;
