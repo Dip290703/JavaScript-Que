@@ -15,9 +15,9 @@ const AddEditTaskModal = ({
   const [isValid, setIsValid] = useState(true);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-const boards = useSelector((state) => state.boards);
-const board = Array.isArray(boards) ? boards.find((board) => board.isActive) : null;
-
+  const board = useSelector((state) => state.boards).find(
+    (board) => board.isActive
+  );
 
   const columns = board.columns;
   const col = columns.find((col, index) => index === prevColIndex);
@@ -97,11 +97,6 @@ console.log(board);
     setNewColIndex(e.target.selectedIndex);
   };
 
-  
-if (!board) {
-  console.log("No active board found or boards not ready yet");
-
-}
   return (
     <div
       onClick={(e) => {
