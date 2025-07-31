@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import cross from "../assets/icon-cross.svg"; // Assuming you have a cross icon in your assets
 import { v4 as uuid } from "uuid"; // Importing uuid for unique IDs
 import { useDispatch, useSelector } from "react-redux";
-import boardsSice from "../redux/boardsSlice"; // Assuming you have a boardsSlice for Redux state management
+import boardsSlice from "../redux/boardsSlice";
 
 const AddEditBoardModal = ({ setBoardModalOpen, type }) => {
   const dispatch = useDispatch();
   const [name,setName]=useState('')
   const [isvalid, setIsValid] = useState(true);
   const [isFirstLoad,setIsFirstLoad] = useState(true)
-  const boards = useSelector((state) => state.boards);
-const board = boards.find((board) => board.isActive);
+  const board = useSelector((state) => state.boards).find(
+    (board) => board.isActive
+  );
+
  const [columns, setColumns] = useState( [
         { name: "Todo", task: [], id: uuid() },
         { name: "Doing", task: [], id: uuid() },
@@ -19,17 +21,15 @@ const board = boards.find((board) => board.isActive);
 );
 
 
-React.useEffect(() => {
-  if (type === "edit" && isFirstLoad && board) {
-    setColumns(
-      board.columns.map((col) => {
-        return { ...col, id: uuid() };
-      })
-    );
-    setName(board.name);
-    setIsFirstLoad(false);
-  }
-}, [type, isFirstLoad, board]);
+if(type === 'edit' && isFirstLoad) {
+  setColumns(
+    board.columns.map((col)=>{
+      return { ...col , id :uuid() }
+    })
+  )
+  setName(board.name)
+  setIsFirstLoad(false)
+}
 
 
 
@@ -66,13 +66,13 @@ React.useEffect(() => {
   const onSubmit = (type) => {
     setBoardModalOpen(false);
     if(type === "add") {
-      dispatch(boardsSice.actions.addBoard({
+      dispatch(boardsSlice.actions.addBoard({
         name,
         columns,
-        isActive:true
+     
       }));
     }else{
-      dispatch(boardsSice.actions.editBoard({
+      dispatch(boardsSlice.actions.editBoard({
         name,
         columns
       }));
@@ -126,8 +126,8 @@ React.useEffect(() => {
      onClick={() => {
       setColumns((state)=> [
         ...state,
-        { name: "", tasks: [], id: uuid() }
-      ])
+        { name: "", tasks: [], id: uuid() },
+      ]);
      }}>
      + Add New Column
      </button>
@@ -135,7 +135,7 @@ React.useEffect(() => {
      onClick={
       ()=> {
         const isvalid  = validate()
-        if(isvalid) onSubmit(type)
+        if(isvalid === true) onSubmit(type)
       }
      }> 
       {

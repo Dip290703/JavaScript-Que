@@ -29,14 +29,14 @@ const AddEditTaskModal = ({
     { title: "", isCompleted: false, id: uuid() },
   ]);
 
-console.log(board);
+  //console.log(board);
 
   const onDelete = (id) => {
     setSubtasks((prev) => {
       return prev.filter((subTask) => subTask.id !== id);
     });
   };
-  const onChange = (value, id) => {
+  const onChange = (id, value) => {
     setSubtasks((prev) => {
       const newState = [...prev];
       const subtask = newState.find((subtask) => subtask.id === id);
@@ -45,10 +45,10 @@ console.log(board);
     });
   };
 
-   if (type === "edit" && isFirstLoad) {
+  if (type === "edit" && isFirstLoad) {
     setSubtasks(
       task.subtasks.map((subtask) => {
-        return { ...subtask, id: uuidv4() };
+        return { ...subtask, id: uuid() };
       })
     );
     setTitle(task.title);
@@ -74,20 +74,23 @@ console.log(board);
     if (type === "add") {
       dispatch(
         boardsSlice.actions.addTask({
-        title, description, subtasks, status,
+          title,
+          description,
+          subtasks,
+          status,
           newColIndex,
         })
       );
     } else {
       dispatch(
         boardsSlice.actions.editTask({
-            title,
-        status,
-        description,
-        subtasks,
-        prevColIndex,
-        newColIndex,
-        taskIndex,
+          title,
+          status,
+          description,
+          subtasks,
+          prevColIndex,
+          newColIndex,
+          taskIndex,
         })
       );
     }
@@ -143,13 +146,13 @@ console.log(board);
           <label className="text-sm dark:text-white text-gray-500">
             Subtasks
           </label>
-          {subtasks.map((subTask, index) => (
+          {subtasks.map((subtask, index) => (
             <div key={index} className="flex items-center   w-full">
               <input
                 type="text"
-                value={subTask.title}
+                value={subtask.title}
                 onChange={(e) => {
-                  onChange(e.target.value, subTask.id);
+                  onChange(subtask.id, e.target.value);
                 }}
                 className="bg-transparent outline-none focus:border-0 flex-grow text-sm border-gray-600 focus:outline-[#635fc7] py-2 px-4 ring-0 rounded-md border mt-2"
                 placeholder="e.g Take coffee break"
@@ -159,7 +162,7 @@ console.log(board);
                 alt=""
                 className="ml-4 mt-2"
                 onClick={() => {
-                  onDelete(subTask.id);
+                  onDelete(subtask.id);
                 }}
               />
             </div>
@@ -183,7 +186,9 @@ console.log(board);
             </label>
             <select
               value={status}
-              onChange={(e) =>{onChangeStatus(e)}}
+              onChange={(e) => {
+                onChangeStatus(e);
+              }}
               className="select flex flex-grow py-2 px-4 rounded-md text-sm 
              bg-white dark:bg-gray-800 text-black dark:text-white 
              border border-gray-600 focus:outline-[#635fc7] focus:border-0 outline-none"
