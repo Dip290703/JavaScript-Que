@@ -7,7 +7,7 @@ function perfectNumber(n) {
     if (n % i === 0) {
       sum += i;
     }
-  }
+  } 
   return sum === n;
 }
 console.log(perfectNumber(7)); // true
