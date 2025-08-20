@@ -5,6 +5,7 @@ const students = [
   { id: 4, name: "Meena", age: 18, grade: "B" },
   { id: 5, name: "Raj", age: 21, grade: "A" },
 ];
+const numbers = [1, 2, 3, 4];
 
 function Counter() {
   const [count, setCount] = React.useState(0);
@@ -23,8 +24,31 @@ function Counter() {
       <h1>{count}</h1>
       <button onClick={increament}>add</button>
       <button onClick={decreament}>sub</button>
-      <hr/>
+      <hr />
       {/* map ,filter question */}
+      <h1></h1>
+      <ul>
+        {students.map((student) => {
+          return (
+            <li>
+              <strong>{student.name}</strong> - age={student.age} - grade=
+              {student.grade}
+            </li>
+          );
+        })}
+      </ul>
+      <ul>
+        {numbers.map((number, index) => (
+          <li key={index}>{number * 2}</li>
+        ))}
+      </ul>
+      <ul>
+          {numbers
+          .filter((number) => number > 2)
+          .map((number) => (
+            <li key={number}>{number}</li>
+          ))}
+      </ul>
     </div>
   );
 }
