@@ -1,0 +1,54 @@
+📒 HTML & CSS Interview Notes
+HTML
+
+Semantic tags → <header>, <footer>, <article>; improve readability, SEO & accessibility.
+
+Block vs Inline → Block: new line, full width (<div>, <p>). Inline: same line (<span>, <a>).
+
+id vs class → id = unique (one element), class = reusable (multiple elements).
+
+HTML vs HTML5 → New semantic tags, <audio>, <video>, <canvas>, localStorage/sessionStorage, new input types.
+
+localStorage vs sessionStorage vs cookies →
+
+localStorage = permanent (until cleared).
+
+sessionStorage = only current session.
+
+cookies = small data sent with every request (good for auth).
+
+CSS
+
+Positioning →
+
+static (default),
+
+relative (self),
+
+absolute (relative to parent),
+
+fixed (viewport),
+
+sticky (scroll + relative).
+
+Inline vs Internal vs External CSS →
+
+inline = style="",
+
+internal = <style> tag,
+
+external = separate .css file (best).
+
+Pseudo-classes vs Pseudo-elements →
+
+Pseudo-class = state (:hover, :focus, :nth-child()).
+
+Pseudo-element = part of element (::before, ::after).
+
+Relative vs Absolute units →
+
+Absolute = px, pt (fixed).
+
+Relative = em (parent), rem (root), % (parent size). Better for responsiveness.
+
+Media queries → @media (max-width: 768px) { ... } → apply styles based on device width. Used for responsive design.
