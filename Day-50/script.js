@@ -3,14 +3,14 @@
 //------------------------------------------------//
 const numbers = [2, 5, 8, 10, 13, 20, 25];
 //question 1 : double the numbers
-const double = numbers.map((num) => num * 2);
+const double = numbers.map((num) => num * 2); 
 console.log(double);
 //question 2 : greater than 3
 const greaterThan3 = numbers.filter((num) => num > 3);
 console.log(greaterThan3);
 // question 3 : sum of all numbers
 const sum = numbers.reduce((acc, curr) => acc + curr, 0);
-console.log(sum);
+console.log(sum); 
 //
 
 //------------------------------------------------//
@@ -76,6 +76,34 @@ console.log(averageAge);
 //------------------------------------------------//
 //------------------------------------------------//
 
+//------------------------------------
+//question find the  smallest num in array 
+const arr = [45, 78, 12, 89, 5, 23];
+const smallest = arr.reduce((min, curr) => (curr < min ? curr : min), arr[0]);
+console.log(smallest); 
+//------------------------------------
+ function smalllestNum (arr){
+  let smallest = arr[0];
+  for (let i = 0 ; i < arr.length ;i ++){
+    if(arr[i] < smallest){
+      smallest = arr[i];
+      return smallest;
+    }
+  }
+ }
 
+ //quetion find the largest num in array 
+ const largest = arr.reduce((max, curr) => (curr > max ? curr : max), arr[0]);
+ console.log(largest); 
+ //------------------------------------
+ function largestNum (arr){
+  let largest = arr[0];
+  for (let i = 0 ; i < arr.length ;i ++){
+    if(arr[i] > largest){
+      largest = arr[i];
+      return largest;
+    }
+  }
+ }
 
 
