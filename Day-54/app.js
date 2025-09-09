@@ -8,4 +8,4 @@ console.log("Welcome to Day 54 of 100 Days of Code!");
 //In node js we don't have to use .js extension while importing a file
 // import {add} from './funtion.js'
 console.log(add(5,6));
-z = "This is Day 54 of 100 Days of Code"
+z = "This is Day 54 of 100 Days of Code"     
